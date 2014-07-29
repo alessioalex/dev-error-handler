@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <title><%= err.message %></title>
+  <style type="text/css">
+    <%- baseStyle %>
+
+    <%- hljsStyle %>
+  </style>
+</head>
+<body>
+
+  <h1><%= err.message %></h1>
+
+  <div class="container">
+    <ul class="detailed-stack">
+    <% lines.forEach(function(line) { %>
+    <li>
+      at <%= lines.functionName || 'anonymous' %> 
+      (<%= line.fileName + ':' + line.lineNumber + ':' + line.columnNumber %>)
+      <p>
+        <pre style="counter-increment: lines <%- line.startAt %>;"><code class="hljs lang-js"><%- line.content %></code></pre>
+      </p>
+    </li>
+    <% }) %>
+    </ul>
+
+    <div class="full-stack">
+      <h3>Full stack:</h3>
+
+      <ul>
+      <% err.stack.split('\n').forEach(function(line) { %>
+        <li><%- line.replace(/ /g, '&nbsp;') %></li>
+      <% }) %>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+body {
+  background: #4B4949;
+  margin: 0;
+  font: 400 14px/1.6 "Open Sans", sans-serif;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+h1 {
+  background: #F8EEEE;
+  padding: 10px 48px;
+  border-bottom: 5px solid #D59394;
+  margin: 0;
+}
+
+.detailed-stack li:before {
+  content: "\27BD";
+  padding-right:5px;
+}
+
+pre code {
+  font-family: monaco, monospace;
+}
+
+pre {
+  counter-reset: lines;
+}
+pre .line {
+  counter-increment: lines;
+}
+
+pre .line::before {
+  content: counter(lines); text-align: right;
+  display: inline-block; width: 2em;
+  padding-right: 0.5em; margin-right: 0.5em;
+  color: #BBB; border-right: solid 1px;
+}
+
+.container {
+  margin: 10px 25px;
+  background: #FFF;
+  padding: 15px 25px 0 25px;
+}
+
+.error-line, .error-line > * {
+  font-weight: 700!important;
+  border-bottom: 2px solid #FF0000;
+  border-top: 2px solid #FF0000;
+  border-right: 2px solid #FF0000;
+}
+
+.full-stack {
+  margin-top: 50px;
+}
+
+.full-stack ul {
+  border-top: 3px solid #DBDBDB;
+  padding: 10px 15px;
+  font-style: italic;
+}
