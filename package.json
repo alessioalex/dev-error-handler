@@ -18,6 +18,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alessioalex/dev-error-handler"
+  },
   "author": "Alexandru Vladutu <alexandru.vladutu@gmail.com> (http://careers.stackoverflow.com/alessioalex)",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alessioalex/dev-error-handler/issues"
+  },
+  "homepage": "https://github.com/alessioalex/dev-error-handler"
 }
