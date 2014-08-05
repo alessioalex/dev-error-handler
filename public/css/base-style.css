@@ -45,7 +45,7 @@ pre .line::before {
   padding: 15px 25px 0 25px;
 }
 
-.error-line, .error-line > * {
+.error-line {
   font-weight: 700!important;
   border-bottom: 2px solid #FF0000;
   border-top: 2px solid #FF0000;

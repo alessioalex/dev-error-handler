@@ -11,13 +11,16 @@ To be used in development only.
 var errorHandler = require('dev-error-handler');
 var express = require('express');
 var app = express();
+var ENV = process.env.NODE_ENV || 'development';
 
 app.get('*', function(req, res, next) {
   return next(new Error('oh noess!'));
 });
 
-if (!process.env.NODE_ENV || !)
-app.use(errorHandler);
+if (ENV === 'development') {
+  app.use(errorHandler);
+}
+
 app.listen(process.env.PORT || 7777);
 ```
 
