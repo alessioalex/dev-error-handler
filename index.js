@@ -21,6 +21,10 @@ var render = ejs.compile(errorTmpl);
 module.exports = function(err, req, res, next) {
   var stack = stackTrace.parse(err);
 
+  // filter native stuff, for ex:
+  // at Array.forEach (native)
+  stack = stack.filter(function(line) { return !!line.fileName; });
+
   asyncEach(stack, function getContentInfo(line, cb) {
     // exclude core node modules and node modules
     if ((line.fileName.indexOf(sep) !== -1) && !/node_modules/.test(line.fileName)) {
