@@ -1,6 +1,6 @@
 {
   "name": "dev-error-handler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Error-handling Express middleware that displays syntax highlighted source code.",
   "main": "server.js",
   "dependencies": {
