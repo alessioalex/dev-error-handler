@@ -23,7 +23,7 @@ module.exports = function(err, req, res, next) {
 
   // filter native stuff, for ex:
   // at Array.forEach (native)
-  stack = stack.filter(function(line) { return !!line.fileName; });
+  stack = stack.filter(function(line) { return !line.native; });
 
   asyncEach(stack, function getContentInfo(line, cb) {
     // exclude core node modules and node modules

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-  <h1><%= err.message %></h1>
+  <h1><%- (err.name) ? (err.name + ': ') : '' %> <% err.message.split('\n').forEach(function(l) { %><%= l %><br /><% }) %></h1>
 
   <div class="container">
     <ul class="detailed-stack">
