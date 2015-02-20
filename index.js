@@ -57,7 +57,7 @@ module.exports = function(err, req, res, next) {
 
     console.error(prettifyError(err) || err.stack);
 
-    res.send(render({
+    res.status(500).send(render({
       err: err,
       lines: lines
     }));
