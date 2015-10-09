@@ -4,7 +4,6 @@
   "description": "Error-handling Express middleware that displays syntax highlighted source code.",
   "main": "server.js",
   "dependencies": {
-    "express": "~4.0.0-rc4",
     "stack-trace": "0.0.9",
     "async-each": "~0.1.4",
     "errto": "~0.2.1",
@@ -12,7 +11,9 @@
     "ejs": "~1.0.0",
     "highlight.js": "https://github.com/alessioalex/highlight.js/releases/download/npm-v0.1.1/highlight.js.tar.gz.tgz"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "express": "^4.13.3"
+  },
   "keywords": ["express", "error", "error-handler", "errorhandler"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
