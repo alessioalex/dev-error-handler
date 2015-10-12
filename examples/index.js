@@ -16,3 +16,4 @@ app.use(function(req, res, next) {
 app.use(errorHandler);
 
 app.listen(7777);
+console.log('Awesome, now open %s in the browser for a demo!', 'http://localhost:7777')
