@@ -52,6 +52,7 @@ module.exports = function(err, req, res, next) {
       cb();
     }
   }, function(e, lines) {
+    lines = lines || [];
     // remove empty data from the array (coming from the excluded lines)
     lines = lines.filter(function(line) { return !!line; });
 
