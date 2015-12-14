@@ -2,9 +2,9 @@
 
 var fs = require('fs');
 var stackTrace = require('stack-trace');
-var asyncEach = require('async-each');
+var mapAsync = require('tiny-map-async');
 var errTo = require('errto');
-var prettifyError = require('prettify-error');
+var PrettyError = require('pretty-error');
 var ejs = require('ejs');
 var sep = require('path').sep;
 var hljs = require('highlight.js');
@@ -25,7 +25,7 @@ module.exports = function(err, req, res, next) {
   // at Array.forEach (native)
   stack = stack.filter(function(line) { return !line.native; });
 
-  asyncEach(stack, function getContentInfo(line, cb) {
+  mapAsync(stack, function getContentInfo(line, cb) {
     // exclude core node modules and node modules
     if ((line.fileName.indexOf(sep) !== -1) && !/node_modules/.test(line.fileName)) {
       fs.readFile(line.fileName, 'utf-8', errTo(cb, function(content) {
@@ -56,7 +56,7 @@ module.exports = function(err, req, res, next) {
     // remove empty data from the array (coming from the excluded lines)
     lines = lines.filter(function(line) { return !!line; });
 
-    console.error(prettifyError(err) || err.stack);
+    console.error((new PrettyError).render(err) || err.stack);
 
     res.status(500).send(render({
       err: err,
