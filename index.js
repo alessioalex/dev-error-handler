@@ -33,8 +33,12 @@ module.exports = function(err, req, res, next) {
   stack = stack.filter(function(line) { return !line.native; });
 
   mapAsync(stack, function getContentInfo(line, cb) {
+    var fileName = line.fileName;
+    var isNotNodeCore = (fileName.indexOf('internal' + sep) === -1) && (fileName.indexOf(sep) !== -1);
+    var isNotModule = !/node_modules/.test(fileName);
+
     // exclude core node modules and node modules
-    if ((line.fileName.indexOf(sep) !== -1) && !/node_modules/.test(line.fileName)) {
+    if (isNotNodeCore && isNotModule) {
       fs.readFile(line.fileName, 'utf-8', errTo(cb, function(data) {
         // replace \r\n with => \n for Windows compat and strip the \n from the end of the file
         // TODO: fix this inside hljs line code
@@ -59,6 +63,13 @@ module.exports = function(err, req, res, next) {
       cb();
     }
   }, function(e, lns) {
+    if (e) {
+      console.error('something went bad when generating the detailed stack trace');
+      console.error('please open a github issue for dev-error-handler with the following data: ');
+      console.error('Error message: ' + e.message);
+      console.error('Parsed stack: \n' + err.stack);
+    }
+
     var lines = lns || [];
     // remove empty data from the array (coming from the excluded lines)
     lines = lines.filter(function(line) { return !!line; });
