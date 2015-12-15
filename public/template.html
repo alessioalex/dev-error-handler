@@ -17,7 +17,7 @@
     <ul class="detailed-stack">
     <% lines.forEach(function(line) { %>
     <li>
-      at <%= lines.functionName || 'anonymous' %> 
+      at <%= line.functionName || 'anonymous' %> 
       (<%= line.fileName + ':' + line.lineNumber + ':' + line.columnNumber %>)
       <p>
         <pre style="counter-increment: lines <%- line.startAt %>;"><code class="hljs lang-js"><%- line.content %></code></pre>

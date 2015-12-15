@@ -1,4 +1,5 @@
-"use strict";
+/* eslint-disable no-console, func-names */
+'use strict';
 
 var fs = require('fs');
 var stackTrace = require('stack-trace');
@@ -9,6 +10,10 @@ var ejs = require('ejs');
 var sep = require('path').sep;
 var hljs = require('highlight.js');
 
+if (process.env.NODE_ENV === 'production') {
+  throw new Error('dev-error-handler shouldn\'t be used in production');
+}
+
 hljs.configure({ lineNodes: true });
 
 var baseStyle = fs.readFileSync(__dirname + '/public/css/base-style.css', 'utf8');
@@ -18,20 +23,22 @@ errorTmpl = errorTmpl.replace('<%- hljsStyle %>', hljsStyle);
 errorTmpl = errorTmpl.replace('<%- baseStyle %>', baseStyle);
 var render = ejs.compile(errorTmpl);
 
+/* eslint-disable no-unused-vars */
 module.exports = function(err, req, res, next) {
+/* eslint-enable no-unused-vars */
   var stack = stackTrace.parse(err);
 
-  // filter native stuff, for ex:
+  // exclude native stuff, for ex:
   // at Array.forEach (native)
   stack = stack.filter(function(line) { return !line.native; });
 
   mapAsync(stack, function getContentInfo(line, cb) {
     // exclude core node modules and node modules
     if ((line.fileName.indexOf(sep) !== -1) && !/node_modules/.test(line.fileName)) {
-      fs.readFile(line.fileName, 'utf-8', errTo(cb, function(content) {
+      fs.readFile(line.fileName, 'utf-8', errTo(cb, function(data) {
         // replace \r\n with => \n for Windows compat and strip the \n from the end of the file
         // TODO: fix this inside hljs line code
-        content = hljs.getHighlighted(content.replace(/\r\n/g, '\n').replace(/\n$/, ''), 'javascript').innerHTML;
+        var content = hljs.getHighlighted(data.replace(/\r\n/g, '\n').replace(/\n$/, ''), 'javascript').innerHTML;
 
         var start = line.lineNumber - 5;
         if (start < 0) { start = 0; }
@@ -51,14 +58,16 @@ module.exports = function(err, req, res, next) {
     } else {
       cb();
     }
-  }, function(e, lines) {
-    lines = lines || [];
+  }, function(e, lns) {
+    var lines = lns || [];
     // remove empty data from the array (coming from the excluded lines)
     lines = lines.filter(function(line) { return !!line; });
 
     console.error((new PrettyError).render(err) || err.stack);
 
-    res.status(500).send(render({
+    res.writeHead(500, { 'Content-Type': 'text/html' });
+
+    res.end(render({
       err: err,
       lines: lines
     }));

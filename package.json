@@ -12,7 +12,11 @@
     "tiny-map-async": "^1.0.0"
   },
   "devDependencies": {
-    "express": "^4.13.3"
+    "alessioalex-standard": "^1.1.0",
+    "cheerio": "^0.19.0",
+    "express": "^4.13.3",
+    "husky": "^0.10.2",
+    "simple-get": "^1.4.3"
   },
   "keywords": [
     "express",
@@ -21,8 +25,10 @@
     "errorhandler"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "node test/test",
+    "example": "node examples/http.js",
+    "lint": "alessioalex-standard",
+    "precommit": "npm run lint && npm test"
   },
   "repository": {
     "type": "git",
