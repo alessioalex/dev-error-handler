@@ -1,7 +1,7 @@
 {
   "name": "dev-error-handler",
   "version": "1.0.0",
-  "description": "Error-handling middleware that displays syntax highlighted source code.",
+  "description": "HTTP error-handling middleware that displays syntax highlighted source code.",
   "main": "server.js",
   "dependencies": {
     "ejs": "^2.3.4",

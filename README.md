@@ -1,6 +1,6 @@
 # dev-error-handler
 
-Error-handling middleware that displays syntax highlighted source code.
+HTTP error-handling middleware that displays syntax highlighted source code.
 To be used in development only!
 
 [![Build Status](https://travis-ci.org/alessioalex/dev-error-handler.svg)](https://travis-ci.org/alessioalex/dev-error-handler)
