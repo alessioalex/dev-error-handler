@@ -9,6 +9,7 @@ var PrettyError = require('pretty-error');
 var ejs = require('ejs');
 var sep = require('path').sep;
 var hljs = require('highlight.js');
+var notifier = require('node-notifier');
 
 if (process.env.NODE_ENV === 'production') {
   throw new Error('dev-error-handler shouldn\'t be used in production');
@@ -74,7 +75,17 @@ module.exports = function(err, req, res, next) {
     // remove empty data from the array (coming from the excluded lines)
     lines = lines.filter(function(line) { return !!line; });
 
+    // pretty print in the terminal
     console.error((new PrettyError).render(err) || err.stack);
+
+    // bypass for e2e testing
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+      // send OS notification
+      notifier.notify({
+        title: 'Error in ' + req.method + ' ' + req.url,
+        message: err.message
+      });
+    }
 
     res.writeHead(500, { 'Content-Type': 'text/html' });
 

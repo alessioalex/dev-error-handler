@@ -7,6 +7,7 @@
     "ejs": "^2.3.4",
     "errto": "^0.2.1",
     "highlight.js": "https://github.com/alessioalex/highlight.js/releases/download/npm-v0.1.1/highlight.js.tar.gz.tgz",
+    "node-notifier": "^4.4.0",
     "pretty-error": "^1.2.0",
     "stack-trace": "^0.0.9",
     "tiny-map-async": "^1.0.0"
@@ -27,7 +28,7 @@
     "errorhandler"
   ],
   "scripts": {
-    "test": "node test/test",
+    "test": "NODE_ENV=test node test/test",
     "example": "node examples/http.js",
     "lint": "alessioalex-standard",
     "precommit": "npm run lint && npm test"
